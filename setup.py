@@ -1,12 +1,16 @@
 from setuptools import setup
-import os
+from pathlib import Path
 from genoml import __version__
-with open(os.path.join(os.path.dirname(os.path.realpath(__file__)), "README.md"), "r") as fp:
+
+# Use pathlib to get the current file's directory
+base_dir = Path(__file__).parent
+
+# Read the contents of README.md and requirements.txt
+with (base_dir / "README.md").open("r") as fp:
     long_description = fp.read()
 
-with open(os.path.join(os.path.dirname(os.path.realpath(__file__)), "requirements.txt"), "r") as fp:
-    requirements = fp.read().split("\n")
-
+with (base_dir / "requirements.txt").open("r") as fp:
+    requirements = fp.read().splitlines()
 
 setup(
     name='genoml',
@@ -39,3 +43,4 @@ setup(
     install_requires=requirements,
     package_data={'genoml': ['misc/*', 'misc/*/*', 'experimental/*', 'experimental/*/*']},
 )
+
